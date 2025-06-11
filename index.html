@@ -8,7 +8,7 @@
   <meta name="keywords" content="social media blog, TikTok monetization, YouTube growth, make money online, blog SEO, Shorts strategy" />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Social Media Growth Strategies" />
-  <link rel="canonical" href="http://boostfollowerstips.netlify.app/index.html" />
+  <link rel="canonical" href="https://boostfollowerstips.netlify.app/index.html" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Social Media Monetization Blog" />
   <meta property="og:description" content="Discover how to grow and monetize your online presence. Learn proven tactics for YouTube, TikTok, and blogging." />
@@ -60,14 +60,14 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-    import { getFirestore, collection, getDocs, query, orderBy, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCqv3CQLE-Ymuk3PlnfyRPmg2CZ8XKKj8Q",
       authDomain: "thumbnail-downloader-67a64.firebaseapp.com",
       databaseURL: "https://thumbnail-downloader-67a64-default-rtdb.firebaseio.com",
       projectId: "thumbnail-downloader-67a64",
-      storageBucket: "thumbnail-downloader-67a64.firebasestorage.app",
+      storageBucket: "thumbnail-downloader-67a64.appspot.com",
       messagingSenderId: "798112375228",
       appId: "1:798112375228:web:c44739b4e1feafed7b4bb9",
       measurementId: "G-YBW1YSK6HP"
@@ -95,30 +95,15 @@
         const postEl = document.createElement("div");
         postEl.className = "post-card";
         postEl.innerHTML = `
-          <h2><a href="post.html?id=${postId}">${post.title}</a></h2>
+          <h2><a href="post.html?id=${postId}">${stripHtml(post.title)}</a></h2>
           <div>${stripHtml(post.body).substring(0, 300)}...</div>
+          <p>👁 ${post.views || 0} views</p>
           <p><a href="post.html?id=${postId}" style="color:#0d6efd;">Read More &rarr;</a></p>
-          <button onclick="likePost('${postId}')">❤️ Like (${post.likes || 0})</button>
-          <button onclick="sharePost('${post.title}', 'http://boostfollowersfor.free.nf/post.html?id=${postId}')">🔗 Share</button>
         `;
 
         postsContainer.appendChild(postEl);
       });
     }
-
-    window.likePost = async (id) => {
-      const ref = doc(db, "posts", id);
-      await updateDoc(ref, { likes: increment(1) });
-      loadPosts();
-    };
-
-    window.sharePost = (title, url) => {
-      if (navigator.share) {
-        navigator.share({ title, text: title, url });
-      } else {
-        prompt("Copy this link:", url);
-      }
-    };
 
     window.filterPosts = () => {
       const term = document.getElementById("searchInput").value.toLowerCase();
