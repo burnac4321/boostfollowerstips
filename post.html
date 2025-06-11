@@ -2,94 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title id="page-title">Loading post...</title>
-  <meta name="description" content="" id="page-description" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post - Social Media Monetization Blog</title>
+  <meta name="description" id="metaDesc" content="Loading post..." />
+  <link rel="canonical" href="" id="canonicalLink" />
   <meta name="robots" content="index, follow" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="" id="og-title" />
-  <meta property="og:description" content="" id="og-description" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="" id="og-url" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="" id="twitter-title" />
-  <meta name="twitter:description" content="" id="twitter-description" />
-
   <style>
-    body { font-family: Arial, sans-serif; max-width: 700px; margin: auto; padding: 1rem; }
-    h1, h2 { color: #0d6efd; }
-    article iframe, article video {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 1rem 0;
-    }
-    .buttons button {
-      background: #0d6efd; color: white; border: none;
-      padding: 0.5rem 1rem; margin-right: 0.5rem; border-radius: 5px;
-      cursor: pointer;
-    }
-    .buttons button:hover {
-      background: #0b5ed7;
-    }
-    .related-posts ul, .comments {
-      list-style: none; padding: 0; margin-top: 1rem;
-    }
-    .comment { background: #f1f1f1; margin-top: 0.5rem; padding: 0.5rem; border-radius: 5px; }
-    textarea { width: 100%; height: 60px; margin-top: 0.5rem; padding: 0.5rem; }
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+    header, footer { background: #0d6efd; color: white; text-align: center; padding: 1rem; }
+    .container { max-width: 900px; margin: auto; padding: 1rem; }
+    .post { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
+    .bottom-bar { background: #0d6efd; color: white; padding: 0.5rem; border-radius: 8px; text-align: center; margin-top: 1rem; }
+    .related { background: white; padding: 0.5rem; border-radius: 8px; margin-top: 1rem; }
   </style>
 </head>
 <body>
+  <header>
+    <h1>📈 Social Media Monetization Blog</h1>
+  </header>
 
-  <main>
-    <article>
-      <header>
-        <h1 id="post-title">Loading...</h1>
-        <p aria-label="Number of views">👁 <span id="view-count">0</span> views</p>
-      </header>
-      <section id="post-body" class="post-body" aria-label="Post content">Please wait...</section>
-      <div class="buttons" role="group" aria-label="Post actions">
-        <button id="like-btn" aria-pressed="false" aria-label="Like this post">❤️ Like (<span id="like-count">0</span>)</button>
-        <button id="share-btn" aria-label="Share this post">🔗 Share</button>
-      </div>
-    </article>
+  <div class="container">
+    <div id="postContent">Loading post...</div>
+    <div class="bottom-bar" id="engagementBar" style="display: none;">
+      👍 <span id="likeCount">0</span> Likes | 💬 <span id="commentCount">0</span> Comments | 👁 <span id="viewCount">0</span> Views
+    </div>
+    <div class="related" id="relatedPosts" style="display: none;">
+      <strong>Related Posts:</strong>
+      <div id="relatedList"></div>
+    </div>
+  </div>
 
-    <section class="related-posts" aria-labelledby="related-posts-title">
-      <h2 id="related-posts-title">Related Posts</h2>
-      <ul id="related-list">Loading...</ul>
-    </section>
-
-    <section class="comments-section" aria-labelledby="comments-title">
-      <h2 id="comments-title">Comments</h2>
-      <div id="comments-section">Loading comments...</div>
-      <textarea id="commentInput" placeholder="Write a comment..." aria-label="Write a comment"></textarea>
-      <button id="post-comment-btn" aria-label="Post comment">Post Comment</button>
-    </section>
-  </main>
-
-  <!-- JSON-LD Structured Data for SEO -->
-  <script type="application/ld+json" id="json-ld"></script>
+  <footer>
+    <p>&copy; 2025 Social Media Growth Strategies</p>
+  </footer>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-    import {
-      getFirestore,
-      doc,
-      getDoc,
-      updateDoc,
-      increment,
-      collection,
-      query,
-      orderBy,
-      addDoc,
-      onSnapshot,
-      serverTimestamp,
-      getDocs
-    } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, updateDoc, increment, collection, query, getDocs, orderBy, limit, where } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCqv3CQLE-Ymuk3PlnfyRPmg2CZ8XKKj8Q",
@@ -103,173 +52,69 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const postId = new URLSearchParams(window.location.search).get("id");
-    if (!postId) {
-      alert("No post id provided.");
-      throw new Error("No post id.");
-    }
-
-    const postTitleEl = document.getElementById("post-title");
-    const postBodyEl = document.getElementById("post-body");
-    const likeBtn = document.getElementById("like-btn");
-    const likeCountEl = document.getElementById("like-count");
-    const viewCountEl = document.getElementById("view-count");
-    const relatedList = document.getElementById("related-list");
-    const commentsSection = document.getElementById("comments-section");
-    const commentInput = document.getElementById("commentInput");
-    const postCommentBtn = document.getElementById("post-comment-btn");
-
-    const pageTitle = document.getElementById("page-title");
-    const pageDescription = document.getElementById("page-description");
-    const ogTitle = document.getElementById("og-title");
-    const ogDescription = document.getElementById("og-description");
-    const ogUrl = document.getElementById("og-url");
-    const twitterTitle = document.getElementById("twitter-title");
-    const twitterDescription = document.getElementById("twitter-description");
-    const jsonLdScript = document.getElementById("json-ld");
-
-    function makeMediaResponsive(container) {
-      container.querySelectorAll("iframe, video").forEach(el => {
-        el.style.maxWidth = "100%";
-        el.style.height = "auto";
-        el.style.display = "block";
-        el.style.margin = "1rem 0";
-      });
-    }
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get('id');
+    const postRef = doc(db, "posts", postId);
 
     async function loadPost() {
-      const postRef = doc(db, "posts", postId);
-      const snap = await getDoc(postRef);
-      if (!snap.exists()) {
-        postTitleEl.textContent = "Post Not Found";
-        postBodyEl.textContent = "Sorry, this post does not exist.";
-        pageTitle.textContent = "Post Not Found - Boost Followers Tips";
-        return;
-      }
-      const post = snap.data();
+      const postSnap = await getDoc(postRef);
+      if (postSnap.exists()) {
+        const post = postSnap.data();
+        document.getElementById('postContent').innerHTML = `
+          <div class="post">
+            <h2>${post.title}</h2>
+            <div>${post.body}</div>
+          </div>
+        `;
 
+        // Update meta description dynamically
+        const desc = post.body.replace(/(<([^>]+)>)/gi, "").substring(0, 160);
+        document.getElementById("metaDesc").setAttribute("content", desc);
+        document.getElementById("canonicalLink").setAttribute("href", window.location.href);
+
+        // Show engagement + related in background
+        loadEngagement(postId);
+        loadRelated(post.category || '');
+      } else {
+        document.getElementById('postContent').innerHTML = "<p>Post not found.</p>";
+      }
+    }
+
+    async function loadEngagement(postId) {
+      // Increment view count
       await updateDoc(postRef, { views: increment(1) });
 
+      // Get updated post
       const updatedSnap = await getDoc(postRef);
-      const updatedPost = updatedSnap.data();
+      const data = updatedSnap.data();
+      document.getElementById('viewCount').innerText = data.views || 0;
+      document.getElementById('likeCount').innerText = data.likes || 0;
 
-      postTitleEl.textContent = updatedPost.title || "Untitled";
-      postBodyEl.innerHTML = updatedPost.body || "";
-      likeCountEl.textContent = updatedPost.likes || 0;
-      viewCountEl.textContent = updatedPost.views || 0;
+      // Fetch comments count
+      const commentQ = query(collection(db, "comments"), where("postId", "==", postId));
+      const commentSnap = await getDocs(commentQ);
+      document.getElementById('commentCount').innerText = commentSnap.size;
 
-      // Update meta tags for SEO
-      const descriptionText = updatedPost.description || (updatedPost.body || "").replace(/<[^>]*>?/gm, '').slice(0, 150);
-      pageTitle.textContent = `${updatedPost.title} - Boost Followers Tips`;
-      pageDescription.content = descriptionText;
-      ogTitle.content = updatedPost.title || "Boost Followers Tips";
-      ogDescription.content = descriptionText;
-      ogUrl.content = window.location.href;
-      twitterTitle.content = updatedPost.title || "Boost Followers Tips";
-      twitterDescription.content = descriptionText;
-
-      // JSON-LD structured data
-      jsonLdScript.textContent = JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": updatedPost.title || "Untitled",
-        "description": descriptionText,
-        "url": window.location.href,
-        "datePublished": updatedPost.createdAt?.toDate ? updatedPost.createdAt.toDate().toISOString() : "",
-        "interactionStatistic": [
-          {
-            "@type": "InteractionCounter",
-            "interactionType": "https://schema.org/LikeAction",
-            "userInteractionCount": updatedPost.likes || 0
-          },
-          {
-            "@type": "InteractionCounter",
-            "interactionType": "https://schema.org/ViewAction",
-            "userInteractionCount": updatedPost.views || 0
-          }
-        ]
-      });
-
-      makeMediaResponsive(postBodyEl);
+      document.getElementById('engagementBar').style.display = "block";
     }
 
-    async function loadRelatedPosts() {
-      const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
-      const snapshot = await getDocs(q);
-      relatedList.innerHTML = "";
-
-      let count = 0;
-      snapshot.forEach(docSnap => {
-        if (docSnap.id !== postId && count < 5) {
-          const post = docSnap.data();
-          const li = document.createElement("li");
-          li.innerHTML = `<a href="post.html?id=${docSnap.id}" aria-label="Read related post titled ${post.title || "Untitled"}">${post.title || "Untitled"}</a>`;
-          relatedList.appendChild(li);
-          count++;
+    async function loadRelated(category) {
+      const relQ = query(collection(db, "posts"), where("category", "==", category), orderBy("createdAt", "desc"), limit(2));
+      const relSnap = await getDocs(relQ);
+      let html = '';
+      relSnap.forEach(doc => {
+        if (doc.id !== postId) {
+          const data = doc.data();
+          html += `<p><a href="post.html?id=${doc.id}">${data.title}</a></p>`;
         }
       });
-
-      if (count === 0) {
-        relatedList.textContent = "No related posts found.";
+      if (html) {
+        document.getElementById('relatedList').innerHTML = html;
+        document.getElementById('relatedPosts').style.display = "block";
       }
     }
-
-    function loadComments() {
-      const commentsCol = collection(db, "posts", postId, "comments");
-      const q = query(commentsCol, orderBy("createdAt", "desc"));
-
-      onSnapshot(q, (snapshot) => {
-        commentsSection.innerHTML = "";
-        if (snapshot.empty) {
-          commentsSection.textContent = "No comments yet.";
-          return;
-        }
-
-        snapshot.forEach(docSnap => {
-          const comment = docSnap.data();
-          const div = document.createElement("div");
-          div.className = "comment";
-          div.textContent = comment.text;
-          commentsSection.appendChild(div);
-        });
-      });
-    }
-
-    likeBtn.addEventListener("click", async () => {
-      const postRef = doc(db, "posts", postId);
-      await updateDoc(postRef, { likes: increment(1) });
-      const snap = await getDoc(postRef);
-      likeCountEl.textContent = snap.data().likes || 0;
-      likeBtn.setAttribute("aria-pressed", "true");
-    });
-
-    document.getElementById("share-btn").addEventListener("click", () => {
-      if (navigator.share) {
-        navigator.share({
-          title: postTitleEl.textContent,
-          url: window.location.href,
-        });
-      } else {
-        alert("Share not supported on this browser. Copy the URL: " + window.location.href);
-      }
-    });
-
-    postCommentBtn.addEventListener("click", async () => {
-      const text = commentInput.value.trim();
-      if (!text) return alert("Please write a comment first.");
-
-      const commentsCol = collection(db, "posts", postId, "comments");
-      await addDoc(commentsCol, {
-        text,
-        createdAt: serverTimestamp()
-      });
-      commentInput.value = "";
-    });
 
     loadPost();
-    loadRelatedPosts();
-    loadComments();
   </script>
-
 </body>
 </html>
