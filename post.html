@@ -3,9 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Post | Social Media Monetization Blog</title>
-  <meta name="description" content="Read the full post with monetization tips for YouTube, TikTok, and more."/>
+  <title>Loading post...</title>
+  <meta name="description" content="Loading full post..."/>
   <meta name="robots" content="index, follow"/>
+  <link rel="canonical" id="canonical-link" href="">
+
+  <!-- Dynamic SEO tags (set via JavaScript) -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="">
+  <meta property="og:description" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+
   <style>
     body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
     header, footer { background: #0d6efd; color: white; text-align: center; padding: 1rem; }
@@ -46,6 +59,7 @@
 
   <div class="container">
     <h2 class="post-title" id="post-title">Loading...</h2>
+    <p>👁 <span id="view-count">0</span> views</p>
     <div class="post-body" id="post-body">Please wait...</div>
 
     <div class="buttons">
@@ -74,7 +88,19 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, updateDoc, increment, collection, getDocs, addDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      updateDoc,
+      increment,
+      collection,
+      getDocs,
+      addDoc,
+      serverTimestamp,
+      query,
+      orderBy
+    } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCqv3CQLE-Ymuk3PlnfyRPmg2CZ8XKKj8Q",
@@ -87,39 +113,87 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-
     const postId = new URLSearchParams(window.location.search).get("id");
+
     const postTitleEl = document.getElementById("post-title");
     const postBodyEl = document.getElementById("post-body");
     const likeBtn = document.getElementById("like-btn");
     const likeCount = document.getElementById("like-count");
+    const viewCount = document.getElementById("view-count");
     const relatedList = document.getElementById("related-list");
     const commentsSection = document.getElementById("comments-section");
 
+    function stripHtml(html) {
+      const tmp = document.createElement("div");
+      tmp.innerHTML = html;
+      return tmp.textContent || tmp.innerText || "";
+    }
+
     async function loadPost() {
       if (!postId) return;
+      const ref = doc(db, "posts", postId);
 
-      const docRef = doc(db, "posts", postId);
-      const docSnap = await getDoc(docRef);
+      // Increment views
+      await updateDoc(ref, { views: increment(1) });
 
-      if (docSnap.exists()) {
-        const post = docSnap.data();
-        postTitleEl.textContent = post.title;
-        postBodyEl.innerHTML = post.body;
-        likeCount.textContent = post.likes || 0;
-        loadRelatedPosts(post.title);
-        loadComments();
-      } else {
+      const docSnap = await getDoc(ref);
+      if (!docSnap.exists()) {
         postTitleEl.textContent = "Post Not Found";
         postBodyEl.textContent = "This post doesn't exist or was removed.";
+        return;
       }
+
+      const post = docSnap.data();
+      postTitleEl.textContent = post.title;
+      postBodyEl.innerHTML = post.body;
+      likeCount.textContent = post.likes || 0;
+      viewCount.textContent = post.views || 0;
+
+      // Dynamic SEO updates
+      document.title = post.title;
+
+      const descriptionText = stripHtml(post.body).substring(0, 160);
+      document.querySelector("meta[name='description']").setAttribute("content", descriptionText);
+      document.getElementById("canonical-link").setAttribute("href", window.location.href);
+
+      // Open Graph
+      document.querySelector("meta[property='og:title']").setAttribute("content", post.title);
+      document.querySelector("meta[property='og:description']").setAttribute("content", descriptionText);
+      document.querySelector("meta[property='og:url']").setAttribute("content", window.location.href);
+      document.querySelector("meta[property='og:image']").setAttribute("content", post.image || "https://yourdomain.com/default-image.jpg");
+
+      // Twitter card
+      document.querySelector("meta[name='twitter:title']").setAttribute("content", post.title);
+      document.querySelector("meta[name='twitter:description']").setAttribute("content", descriptionText);
+      document.querySelector("meta[name='twitter:image']").setAttribute("content", post.image || "https://yourdomain.com/default-image.jpg");
+
+      // JSON-LD structured data
+      const ld = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": descriptionText,
+        "datePublished": post.createdAt?.toDate?.().toISOString?.() || new Date().toISOString(),
+        "author": {
+          "@type": "Person",
+          "name": "Social Media Growth Strategies"
+        },
+        "url": window.location.href
+      };
+      const ldScript = document.createElement("script");
+      ldScript.setAttribute("type", "application/ld+json");
+      ldScript.textContent = JSON.stringify(ld);
+      document.head.appendChild(ldScript);
+
+      loadRelatedPosts(post.title);
+      loadComments();
     }
 
     likeBtn.onclick = async () => {
       const ref = doc(db, "posts", postId);
       await updateDoc(ref, { likes: increment(1) });
       const snap = await getDoc(ref);
-      likeCount.textContent = snap.data().likes;
+      likeCount.textContent = snap.data().likes || 0;
     };
 
     document.getElementById("share-btn").onclick = () => {
