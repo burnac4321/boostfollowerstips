@@ -1,35 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Social Media Monetization Blog | YouTube & TikTok Tips</title>
-  <meta name="description" content="Explore expert blog posts on social media growth, TikTok monetization, YouTube income, and more. Learn how to grow your audience and boost your revenue." />
-  <meta name="keywords" content="social media blog, TikTok monetization, YouTube growth, make money online, blog SEO, Shorts strategy" />
-  <meta name="robots" content="index, follow" />
-  <meta name="author" content="Social Media Growth Strategies" />
-  <link rel="canonical" href="http://boostfollowersfor.free.nf/index.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Social Media Monetization Blog" />
-  <meta property="og:description" content="Discover how to grow and monetize your online presence. Learn proven tactics for YouTube, TikTok, and blogging." />
-  <meta property="og:url" content="http://boostfollowersfor.free.nf/blog.html" />
-  <meta property="og:image" content="http://boostfollowersfor.free.nf/preview-image.jpg" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Social Media Monetization Blog" />
-  <meta name="twitter:description" content="Proven growth strategies for YouTube, TikTok, and blogging. Learn to earn online." />
-  <meta name="twitter:image" content="http://boostfollowersfor.free.nf/preview-image.jpg" />
-  <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
-    header, footer { background: #0d6efd; color: white; text-align: center; padding: 1rem; }
-    nav { background: #333; padding: 0.5rem; text-align: center; }
-    nav a { color: white; margin: 0 0.5rem; text-decoration: none; font-weight: bold; display: inline-block; }
-    nav a:hover { text-decoration: underline; }
-    .container { max-width: 900px; margin: auto; padding: 1rem; }
-    .post-card { background: white; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
-    .post-card h2 a { color: #0d6efd; text-decoration: none; }
-    .post-card h2 a:hover { text-decoration: underline; }
-    .search-section { background: white; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
-    input[type="text"] { width: 100%; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Media Monetization Blog | YouTube & TikTok Tips</title>
+  <meta name="description" content="Explore expert blog posts on social media growth, TikTok monetization, YouTube income, and more. Learn how to grow your audience and boost your revenue." />
+  <meta name="keywords" content="social media blog, TikTok monetization, YouTube growth, make money online, blog SEO, Shorts strategy" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Social Media Growth Strategies" />
+  <link rel="canonical" href="http://boostfollowersfor.free.nf/blog.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Social Media Monetization Blog" />
+  <meta property="og:description" content="Discover how to grow and monetize your online presence. Learn proven tactics for YouTube, TikTok, and blogging." />
+  <meta property="og:url" content="http://boostfollowersfor.free.nf/blog.html" />
+  <meta property="og:image" content="http://boostfollowersfor.free.nf/preview-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Social Media Monetization Blog" />
+  <meta name="twitter:description" content="Proven growth strategies for YouTube, TikTok, and blogging. Learn to earn online." />
+  <meta name="twitter:image" content="http://boostfollowersfor.free.nf/preview-image.jpg" />
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+    header, footer { background: #0d6efd; color: white; text-align: center; padding: 1rem; }
+    nav { background: #333; padding: 0.5rem; text-align: center; }
+    nav a { color: white; margin: 0 0.5rem; text-decoration: none; font-weight: bold; display: inline-block; }
+    nav a:hover { text-decoration: underline; }
+    .container { max-width: 900px; margin: auto; padding: 1rem; }
+    .post-card { background: white; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
+    .post-card h2 a { color: #0d6efd; text-decoration: none; }
+    .post-card h2 a:hover { text-decoration: underline; }
+    .search-section { background: white; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
+    input[type="text"] { width: 100%; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc; }
+  </style>
 </head>
 <body>
+
+  <header>
+    <h1>📈 Social Media Monetization Blog</h1>
+    <p>Explore monetization tips for YouTube, TikTok & more</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="terms.html">Terms</a>
+    <a href="create-post.html">📫</a>
+  </nav>
+
+  <div class="container">
+    <div class="search-section">
+      <input type="text" id="searchInput" placeholder="Search blog posts..." oninput="filterPosts()">
+    </div>
+    <div id="posts">Loading posts...</div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Social Media Growth Strategies</p>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, orderBy, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCqv3CQLE-Ymuk3PlnfyRPmg2CZ8XKKj8Q",
+      authDomain: "thumbnail-downloader-67a64.firebaseapp.com",
+      databaseURL: "https://thumbnail-downloader-67a64-default-rtdb.firebaseio.com",
+      projectId: "thumbnail-downloader-67a64",
+      storageBucket: "thumbnail-downloader-67a64.firebasestorage.app",
+      messagingSenderId: "798112375228",
+      appId: "1:798112375228:web:c44739b4e1feafed7b4bb9",
+      measurementId: "G-YBW1YSK6HP"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const postsContainer = document.getElementById("posts");
+
+    function stripHtml(html) {
+      const tmp = document.createElement("div");
+      tmp.innerHTML = html;
+      return tmp.textContent || tmp.innerText || "";
+    }
+
+    async function loadPosts() {
+      const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+      const querySnapshot = await getDocs(q);
+      postsContainer.innerHTML = "";
+
+      querySnapshot.forEach((docSnap) => {
+        const post = docSnap.data();
+        const postId = docSnap.id;
+
+        const postEl = document.createElement("div");
+        postEl.className = "post-card";
+        postEl.innerHTML = `
+          <h2><a href="post.html?id=${postId}">${post.title}</a></h2>
+          <div>${stripHtml(post.body).substring(0, 300)}...</div>
+          <p><a href="post.html?id=${postId}" style="color:#0d6efd;">Read More &rarr;</a></p>
+          <button onclick="likePost('${postId}')">❤️ Like (${post.likes || 0})</button>
+          <button onclick="sharePost('${post.title}', 'http://boostfollowersfor.free.nf/post.html?id=${postId}')">🔗 Share</button>
+        `;
+
+        postsContainer.appendChild(postEl);
+      });
+    }
+
+    window.likePost = async (id) => {
+      const ref = doc(db, "posts", id);
+      await updateDoc(ref, { likes: increment(1) });
+      loadPosts();
+    };
+
+    window.sharePost = (title, url) => {
+      if (navigator.share) {
+        navigator.share({ title, text: title, url });
+      } else {
+        prompt("Copy this link:", url);
+      }
+    };
+
+    window.filterPosts = () => {
+      const term = document.getElementById("searchInput").value.toLowerCase();
+      const posts = document.querySelectorAll(".post-card");
+      posts.forEach(post => {
+        post.style.display = post.innerText.toLowerCase().includes(term) ? "block" : "none";
+      });
+    };
+
+    loadPosts();
+  </script>
+</body>
+</html>
