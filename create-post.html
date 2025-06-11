@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Blog Post</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+    header, footer { background: #0d6efd; color: white; text-align: center; padding: 1rem; }
+    nav { background: #333; padding: 0.5rem; text-align: center; }
+    nav a { color: white; margin: 0 0.5rem; text-decoration: none; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    .container { max-width: 800px; margin: auto; background: white; padding: 1rem; margin-top: 1rem; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
+    label { display: block; margin-top: 1rem; font-weight: bold; }
+    input[type="text"], textarea { width: 100%; padding: 0.5rem; margin-top: 0.3rem; border-radius: 5px; border: 1px solid #ccc; }
+    button { margin-top: 1rem; padding: 0.6rem 1.2rem; background: #0d6efd; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #0b5ed7; }
+    .note { font-size: 0.9rem; color: #555; margin-top: 0.3rem; }
+    #createForm { display: none; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>✍️ Create a New Blog Post</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="blog.html">Blog</a>
+    <a href="post.html">Read Posts</a>
+  </nav>
+
+  <div class="container" id="createForm">
+    <label for="title">Post Title:</label>
+    <input type="text" id="title" placeholder="Enter your post title..." />
+
+    <label for="body">Post Content (HTML allowed):</label>
+    <textarea id="body" rows="12" placeholder="Enter HTML content or just type text..."></textarea>
+    <div class="note">You can include raw HTML like <code>&lt;iframe&gt;</code>, <code>&lt;img&gt;</code>, or ad codes.</div>
+
+    <button onclick="createPost()">✅ Publish</button>
+
+    <p id="message" style="margin-top:1rem; color:green;"></p>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Social Media Growth Strategies</p>
+  </footer>
+
+  <script>
+    const correctPassword = "Irasene5$";
+    const userInput = prompt("Enter password to access this page:");
+
+    if (userInput === correctPassword) {
+      document.getElementById("createForm").style.display = "block";
+    } else {
+      alert("❌ Incorrect password. Redirecting to homepage.");
+      window.location.href = "index.html"; // Redirect to safe page
+    }
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCqv3CQLE-Ymuk3PlnfyRPmg2CZ8XKKj8Q",
+      authDomain: "thumbnail-downloader-67a64.firebaseapp.com",
+      projectId: "thumbnail-downloader-67a64",
+      storageBucket: "thumbnail-downloader-67a64.appspot.com",
+      messagingSenderId: "798112375228",
+      appId: "1:798112375228:web:c44739b4e1feafed7b4bb9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.createPost = async () => {
+      const title = document.getElementById("title").value.trim();
+      const body = document.getElementById("body").value.trim();
+      const message = document.getElementById("message");
+
+      if (!title || !body) {
+        message.style.color = "red";
+        message.textContent = "Title and body are required.";
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "posts"), {
+          title,
+          body,
+          likes: 0,
+          createdAt: serverTimestamp()
+        });
+
+        document.getElementById("title").value = "";
+        document.getElementById("body").value = "";
+        message.style.color = "green";
+        message.textContent = "✅ Post published successfully!";
+      } catch (error) {
+        message.style.color = "red";
+        message.textContent = "❌ Error: " + error.message;
+      }
+    };
+  </script>
+</body>
+</html>
