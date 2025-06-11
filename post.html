@@ -1,315 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Loading post...</title>
-  <meta name="description" content="Loading full post..."/>
-  <meta name="robots" content="index, follow"/>
-  <link rel="canonical" id="canonical-link" href="">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Dynamic SEO tags (set via JavaScript) -->
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="">
-  <meta property="og:description" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="">
-  <meta name="twitter:description" content="">
-  <meta name="twitter:image" content="">
+  <title id="page-title">Loading post...</title>
+  <meta name="description" content="" id="page-description" />
+  <meta name="robots" content="index, follow" />
 
-  <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
-    header, footer { background: #0d6efd; color: white; text-align: center; padding: 1rem; }
-    nav { background: #333; padding: 0.5rem; text-align: center; }
-    nav a { color: white; margin: 0 0.5rem; text-decoration: none; font-weight: bold; display: inline-block; }
-    nav a:hover { text-decoration: underline; }
-    .container { max-width: 900px; margin: auto; padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1); margin-top: 1rem; }
-    .post-title { color: #0d6efd; }
-    .post-body { line-height: 1.6; }
+  <!-- Open Graph -->
+  <meta property="og:title" content="" id="og-title" />
+  <meta property="og:description" content="" id="og-description" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="" id="og-url" />
 
-    /* Responsive embedded media */
-    .post-body iframe,
-    .post-body video {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 1rem auto;
-      aspect-ratio: 16 / 9;
-    }
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="" id="twitter-title" />
+  <meta name="twitter:description" content="" id="twitter-description" />
 
-    .buttons { margin-top: 1rem; }
-    button { margin-right: 0.5rem; padding: 0.4rem 0.8rem; border: none; background: #0d6efd; color: white; border-radius: 5px; cursor: pointer; }
-    button:hover { background: #0b5ed7; }
-    .related-posts { margin-top: 2rem; }
-    .related-posts h3 { border-bottom: 1px solid #ccc; padding-bottom: 0.5rem; }
-    .related-posts ul { list-style: none; padding: 0; }
-    .related-posts li { margin: 0.5rem 0; }
-    .related-posts a { color: #0d6efd; text-decoration: none; }
-    .related-posts a:hover { text-decoration: underline; }
-    .comments { margin-top: 2rem; }
-    .comment-box textarea { width: 100%; padding: 0.5rem; margin-top: 0.5rem; }
-    .comment-box button { margin-top: 0.5rem; }
-    .comment { background: #f1f1f1; padding: 0.5rem; border-radius: 5px; margin-top: 0.5rem; }
-  </style>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 700px; margin: auto; padding: 1rem; }
+    h1, h2 { color: #0d6efd; }
+    article iframe, article video {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1rem 0;
+    }
+    .buttons button {
+      background: #0d6efd; color: white; border: none;
+      padding: 0.5rem 1rem; margin-right: 0.5rem; border-radius: 5px;
+      cursor: pointer;
+    }
+    .buttons button:hover {
+      background: #0b5ed7;
+    }
+    .related-posts ul, .comments {
+      list-style: none; padding: 0; margin-top: 1rem;
+    }
+    .comment { background: #f1f1f1; margin-top: 0.5rem; padding: 0.5rem; border-radius: 5px; }
+    textarea { width: 100%; height: 60px; margin-top: 0.5rem; padding: 0.5rem; }
+  </style>
 </head>
 <body>
 
-  <header>
-    <h1>📖 Full Blog Post</h1>
-  </header>
+  <main>
+    <article>
+      <header>
+        <h1 id="post-title">Loading...</h1>
+        <p aria-label="Number of views">👁 <span id="view-count">0</span> views</p>
+      </header>
+      <section id="post-body" class="post-body" aria-label="Post content">Please wait...</section>
+      <div class="buttons" role="group" aria-label="Post actions">
+        <button id="like-btn" aria-pressed="false" aria-label="Like this post">❤️ Like (<span id="like-count">0</span>)</button>
+        <button id="share-btn" aria-label="Share this post">🔗 Share</button>
+      </div>
+    </article>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="blog.html">Blog</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+    <section class="related-posts" aria-labelledby="related-posts-title">
+      <h2 id="related-posts-title">Related Posts</h2>
+      <ul id="related-list">Loading...</ul>
+    </section>
 
-  <div class="container">
-    <h2 class="post-title" id="post-title">Loading...</h2>
-    <p>👁 <span id="view-count">0</span> views</p>
-    <div class="post-body" id="post-body">Please wait...</div>
+    <section class="comments-section" aria-labelledby="comments-title">
+      <h2 id="comments-title">Comments</h2>
+      <div id="comments-section">Loading comments...</div>
+      <textarea id="commentInput" placeholder="Write a comment..." aria-label="Write a comment"></textarea>
+      <button id="post-comment-btn" aria-label="Post comment">Post Comment</button>
+    </section>
+  </main>
 
-    <div class="buttons">
-      <button id="like-btn">❤️ Like (<span id="like-count">0</span>)</button>
-      <button id="share-btn">🔗 Share</button>
-    </div>
+  <!-- JSON-LD Structured Data for SEO -->
+  <script type="application/ld+json" id="json-ld"></script>
 
-    <div class="related-posts" id="related-posts">
-      <h3>📚 Related Posts</h3>
-      <ul id="related-list">Loading...</ul>
-    </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      updateDoc,
+      increment,
+      collection,
+      query,
+      orderBy,
+      addDoc,
+      onSnapshot,
+      serverTimestamp,
+      getDocs
+    } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
-    <div class="comments">
-      <h3>💬 Comments</h3>
-      <div id="comments-section">Loading comments...</div>
-      <div class="comment-box">
-        <textarea id="commentInput" rows="3" placeholder="Write a comment..."></textarea>
-        <button onclick="submitComment()">Post Comment</button>
-      </div>
-    </div>
-  </div>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCqv3CQLE-Ymuk3PlnfyRPmg2CZ8XKKj8Q",
+      authDomain: "thumbnail-downloader-67a64.firebaseapp.com",
+      projectId: "thumbnail-downloader-67a64",
+      storageBucket: "thumbnail-downloader-67a64.appspot.com",
+      messagingSenderId: "798112375228",
+      appId: "1:798112375228:web:c44739b4e1feafed7b4bb9"
+    };
 
-  <footer>
-    <p>&copy; 2025 Social Media Growth Strategies</p>
-  </footer>
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-    import {
-      getFirestore,
-      doc,
-      getDoc,
-      updateDoc,
-      increment,
-      collection,
-      getDocs,
-      addDoc,
-      serverTimestamp,
-      query,
-      orderBy,
-      limit
-    } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+    const postId = new URLSearchParams(window.location.search).get("id");
+    if (!postId) {
+      alert("No post id provided.");
+      throw new Error("No post id.");
+    }
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCqv3CQLE-Ymuk3PlnfyRPmg2CZ8XKKj8Q",
-      authDomain: "thumbnail-downloader-67a64.firebaseapp.com",
-      projectId: "thumbnail-downloader-67a64",
-      storageBucket: "thumbnail-downloader-67a64.appspot.com",
-      messagingSenderId: "798112375228",
-      appId: "1:798112375228:web:c44739b4e1feafed7b4bb9"
-    };
+    const postTitleEl = document.getElementById("post-title");
+    const postBodyEl = document.getElementById("post-body");
+    const likeBtn = document.getElementById("like-btn");
+    const likeCountEl = document.getElementById("like-count");
+    const viewCountEl = document.getElementById("view-count");
+    const relatedList = document.getElementById("related-list");
+    const commentsSection = document.getElementById("comments-section");
+    const commentInput = document.getElementById("commentInput");
+    const postCommentBtn = document.getElementById("post-comment-btn");
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const postId = new URLSearchParams(window.location.search).get("id");
+    const pageTitle = document.getElementById("page-title");
+    const pageDescription = document.getElementById("page-description");
+    const ogTitle = document.getElementById("og-title");
+    const ogDescription = document.getElementById("og-description");
+    const ogUrl = document.getElementById("og-url");
+    const twitterTitle = document.getElementById("twitter-title");
+    const twitterDescription = document.getElementById("twitter-description");
+    const jsonLdScript = document.getElementById("json-ld");
 
-    const postTitleEl = document.getElementById("post-title");
-    const postBodyEl = document.getElementById("post-body");
-    const likeBtn = document.getElementById("like-btn");
-    const likeCount = document.getElementById("like-count");
-    const viewCount = document.getElementById("view-count");
-    const relatedList = document.getElementById("related-list");
-    const commentsSection = document.getElementById("comments-section");
+    function makeMediaResponsive(container) {
+      container.querySelectorAll("iframe, video").forEach(el => {
+        el.style.maxWidth = "100%";
+        el.style.height = "auto";
+        el.style.display = "block";
+        el.style.margin = "1rem 0";
+      });
+    }
 
-    function stripHtml(html) {
-      const tmp = document.createElement("div");
-      tmp.innerHTML = html;
-      return tmp.textContent || tmp.innerText || "";
-    }
+    async function loadPost() {
+      const postRef = doc(db, "posts", postId);
+      const snap = await getDoc(postRef);
+      if (!snap.exists()) {
+        postTitleEl.textContent = "Post Not Found";
+        postBodyEl.textContent = "Sorry, this post does not exist.";
+        pageTitle.textContent = "Post Not Found - Boost Followers Tips";
+        return;
+      }
+      const post = snap.data();
 
-    async function loadPost() {
-      if (!postId) return;
+      await updateDoc(postRef, { views: increment(1) });
 
-      const postRef = doc(db, "posts", postId);
+      const updatedSnap = await getDoc(postRef);
+      const updatedPost = updatedSnap.data();
 
-      // Increment views (async, don't block)
-      updateDoc(postRef, { views: increment(1) }).catch(() => {
-        console.warn("Failed to increment views");
-      });
+      postTitleEl.textContent = updatedPost.title || "Untitled";
+      postBodyEl.innerHTML = updatedPost.body || "";
+      likeCountEl.textContent = updatedPost.likes || 0;
+      viewCountEl.textContent = updatedPost.views || 0;
 
-      const postSnap = await getDoc(postRef);
+      // Update meta tags for SEO
+      const descriptionText = updatedPost.description || (updatedPost.body || "").replace(/<[^>]*>?/gm, '').slice(0, 150);
+      pageTitle.textContent = `${updatedPost.title} - Boost Followers Tips`;
+      pageDescription.content = descriptionText;
+      ogTitle.content = updatedPost.title || "Boost Followers Tips";
+      ogDescription.content = descriptionText;
+      ogUrl.content = window.location.href;
+      twitterTitle.content = updatedPost.title || "Boost Followers Tips";
+      twitterDescription.content = descriptionText;
 
-      if (!postSnap.exists()) {
-        postTitleEl.textContent = "Post Not Found";
-        postBodyEl.textContent = "This post doesn't exist or was removed.";
-        return;
-      }
+      // JSON-LD structured data
+      jsonLdScript.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": updatedPost.title || "Untitled",
+        "description": descriptionText,
+        "url": window.location.href,
+        "datePublished": updatedPost.createdAt?.toDate ? updatedPost.createdAt.toDate().toISOString() : "",
+        "interactionStatistic": [
+          {
+            "@type": "InteractionCounter",
+            "interactionType": "https://schema.org/LikeAction",
+            "userInteractionCount": updatedPost.likes || 0
+          },
+          {
+            "@type": "InteractionCounter",
+            "interactionType": "https://schema.org/ViewAction",
+            "userInteractionCount": updatedPost.views || 0
+          }
+        ]
+      });
 
-      const post = postSnap.data();
-      postTitleEl.textContent = post.title;
-      postBodyEl.innerHTML = post.body; // embedded videos and ads scripts render here
-      likeCount.textContent = post.likes || 0;
-      viewCount.textContent = post.views || 0;
+      makeMediaResponsive(postBodyEl);
+    }
 
-      makeMediaResponsive(postBodyEl);
+    async function loadRelatedPosts() {
+      const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+      const snapshot = await getDocs(q);
+      relatedList.innerHTML = "";
 
-      // SEO updates
-      document.title = post.title;
+      let count = 0;
+      snapshot.forEach(docSnap => {
+        if (docSnap.id !== postId && count < 5) {
+          const post = docSnap.data();
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="post.html?id=${docSnap.id}" aria-label="Read related post titled ${post.title || "Untitled"}">${post.title || "Untitled"}</a>`;
+          relatedList.appendChild(li);
+          count++;
+        }
+      });
 
-      const descriptionText = stripHtml(post.body).substring(0, 160);
-      document.querySelector("meta[name='description']").setAttribute("content", descriptionText);
-      document.getElementById("canonical-link").setAttribute("href", window.location.href);
+      if (count === 0) {
+        relatedList.textContent = "No related posts found.";
+      }
+    }
 
-      document.querySelector("meta[property='og:title']").setAttribute("content", post.title);
-      document.querySelector("meta[property='og:description']").setAttribute("content", descriptionText);
-      document.querySelector("meta[property='og:url']").setAttribute("content", window.location.href);
-      document.querySelector("meta[property='og:image']").setAttribute("content", post.image || "https://yourdomain.com/default-image.jpg");
+    function loadComments() {
+      const commentsCol = collection(db, "posts", postId, "comments");
+      const q = query(commentsCol, orderBy("createdAt", "desc"));
 
-      document.querySelector("meta[name='twitter:title']").setAttribute("content", post.title);
-      document.querySelector("meta[name='twitter:description']").setAttribute("content", descriptionText);
-      document.querySelector("meta[name='twitter:image']").setAttribute("content", post.image || "https://yourdomain.com/default-image.jpg");
+      onSnapshot(q, (snapshot) => {
+        commentsSection.innerHTML = "";
+        if (snapshot.empty) {
+          commentsSection.textContent = "No comments yet.";
+          return;
+        }
 
-      const ld = {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": post.title,
-        "description": descriptionText,
-        "datePublished": post.createdAt?.toDate?.()?.toISOString?.() || new Date().toISOString(),
-        "author": {
-          "@type": "Person",
-          "name": "Social Media Growth Strategies"
-        },
-        "url": window.location.href
-      };
-      const ldScript = document.createElement("script");
-      ldScript.setAttribute("type", "application/ld+json");
-      ldScript.textContent = JSON.stringify(ld);
-      document.head.appendChild(ldScript);
-    }
+        snapshot.forEach(docSnap => {
+          const comment = docSnap.data();
+          const div = document.createElement("div");
+          div.className = "comment";
+          div.textContent = comment.text;
+          commentsSection.appendChild(div);
+        });
+      });
+    }
 
-    function makeMediaResponsive(container) {
-      const iframes = container.querySelectorAll("iframe");
-      iframes.forEach(iframe => {
-        iframe.style.maxWidth = "100%";
-        iframe.style.height = "auto";
-        iframe.style.aspectRatio = "16 / 9";
-        iframe.style.display = "block";
-        iframe.style.margin = "auto";
-      });
+    likeBtn.addEventListener("click", async () => {
+      const postRef = doc(db, "posts", postId);
+      await updateDoc(postRef, { likes: increment(1) });
+      const snap = await getDoc(postRef);
+      likeCountEl.textContent = snap.data().likes || 0;
+      likeBtn.setAttribute("aria-pressed", "true");
+    });
 
-      const videos = container.querySelectorAll("video");
-      videos.forEach(video => {
-        video.style.maxWidth = "100%";
-        video.style.height = "auto";
-        video.style.display = "block";
-        video.style.margin = "auto";
-      });
-    }
+    document.getElementById("share-btn").addEventListener("click", () => {
+      if (navigator.share) {
+        navigator.share({
+          title: postTitleEl.textContent,
+          url: window.location.href,
+        });
+      } else {
+        alert("Share not supported on this browser. Copy the URL: " + window.location.href);
+      }
+    });
 
-    async function loadRelatedPosts() {
-      relatedList.innerHTML = "Loading...";
-      const relatedPostsQuery = query(
-        collection(db, "posts"),
-        orderBy("createdAt", "desc"),
-        limit(5)
-      );
-      const relatedSnapshot = await getDocs(relatedPostsQuery);
-      relatedList.innerHTML = "";
-      relatedSnapshot.forEach(docSnap => {
-        if (docSnap.id !== postId) {
-          const post = docSnap.data();
-          const li = document.createElement("li");
-          li.innerHTML = `<a href="post.html?id=${docSnap.id}">${post.title}</a>`;
-          relatedList.appendChild(li);
-        }
-      });
-      if (relatedList.children.length === 0) {
-        relatedList.textContent = "No related posts found.";
-      }
-    }
+    postCommentBtn.addEventListener("click", async () => {
+      const text = commentInput.value.trim();
+      if (!text) return alert("Please write a comment first.");
 
-    async function loadComments() {
-      commentsSection.innerHTML = "Loading comments...";
-      const commentsQuery = query(
-        collection(db, "posts", postId, "comments"),
-        orderBy("createdAt", "desc")
-      );
-      const commentsSnapshot = await getDocs(commentsQuery);
-      commentsSection.innerHTML = "";
-      commentsSnapshot.forEach(docSnap => {
-        const comment = docSnap.data();
-        const div = document.createElement("div");
-        div.className = "comment";
-        div.textContent = comment.text;
-        commentsSection.appendChild(div);
-      });
-      if (commentsSection.children.length === 0) {
-        commentsSection.textContent = "No comments yet. Be the first!";
-      }
-    }
+      const commentsCol = collection(db, "posts", postId, "comments");
+      await addDoc(commentsCol, {
+        text,
+        createdAt: serverTimestamp()
+      });
+      commentInput.value = "";
+    });
 
-    function lazyLoadOnView(element, callback) {
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            callback();
-            obs.unobserve(entry.target);
-          }
-        });
-      }, {
-        rootMargin: "0px 0px 200px 0px"
-      });
-      observer.observe(element);
-    }
-
-    likeBtn.onclick = async () => {
-      if (!postId) return;
-      const ref = doc(db, "posts", postId);
-      await updateDoc(ref, { likes: increment(1) });
-      const snap = await getDoc(ref);
-      likeCount.textContent = snap.data().likes || 0;
-    };
-
-    document.getElementById("share-btn").onclick = () => {
-      const url = window.location.href;
-      const title = postTitleEl.textContent;
-      if (navigator.share) {
-        navigator.share({ title, text: title, url });
-      } else {
-        prompt("Copy this link to share:", url);
-      }
-    };
-
-    window.submitComment = async () => {
-      const text = document.getElementById("commentInput").value.trim();
-      if (!text) return;
-      await addDoc(collection(db, "posts", postId, "comments"), {
-        text,
-        createdAt: serverTimestamp()
-      });
-      document.getElementById("commentInput").value = "";
-      loadComments();
-    };
-
-    // Load main post immediately, then lazy load related posts and comments
-    loadPost().then(() => {
-      lazyLoadOnView(relatedList, loadRelatedPosts);
-      lazyLoadOnView(commentsSection, loadComments);
-    });
-  </script>
+    loadPost();
+    loadRelatedPosts();
+    loadComments();
+  </script>
 
 </body>
 </html>
