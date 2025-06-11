@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Prevent crawling of potential admin or private pages (if you create them later)
+Disallow: /create-post.html
+
+# Ensure Google indexes all post pages with query strings
+Allow: /post.html
+
+# Optional: Add your sitemap for better indexing
+Sitemap: http://boostfollowersfor.free.nf/sitemap.xml
