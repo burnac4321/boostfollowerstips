@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
-    <loc>http://boostfollowersfor.free.nf/index.html</loc>
-    <lastmod>2025-06-11</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
+    <loc>content://media/index.html</loc>
   </url>
-
   <url>
-    <loc>http://boostfollowersfor.free.nf/blog.html</loc>
-    <lastmod>2025-06-11</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
+    <loc>content://media/contact.html</loc>
   </url>
-
-  <!-- Sample post pages (you can add real ones as they are created) -->
   <url>
-    <loc>http://boostfollowersfor.free.nf/post.html?id=abc123</loc>
-    <lastmod>2025-06-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>content://media/terms.html</loc>
   </url>
-
   <url>
-    <loc>http://boostfollowersfor.free.nf/post.html?id=xyz456</loc>
-    <lastmod>2025-06-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>content://media/create-post.html</loc>
   </url>
-
+  <url>
+    <loc>content://media/post.html?id=09hR6fxRXkI1AZjoqzBO</loc>
+  </url>
+  <url>
+    <loc>content://media/post.html?id=5W9poUAPmwUtauRadJs5</loc>
+  </url>
+  <url>
+    <loc>content://media/post.html?id=64KB4iotchPMj64o2ew8</loc>
+  </url>
+  <url>
+    <loc>content://media/post.html?id=GFb9UsL4ZLWm44zgi97t</loc>
+  </url>
+  <url>
+    <loc>content://media/post.html?id=JroinStNRt3PSNa84pwn</loc>
+  </url>
+  <url>
+    <loc>content://media/post.html?id=KBjwVJPdcAnR0W9o0KRz</loc>
+  </url>
+  <url>
+    <loc>content://media/post.html?id=KFPqqfU9mgFpFR4l4tT4</loc>
+  </url>
+  <url>
+    <loc>content://media/post.html?id=MZJt6nkCW6e4P5sP4WFr</loc>
+  </url>
+  <url>
+    <loc>content://media/post.html?id=UTIaHievgwr5t3kOtpgi</loc>
+  </url>
+  <url>
+    <loc>content://media/post.html?id=xpHV0Jmw8xeenJZz6CQN</loc>
+  </url>
 </urlset>
